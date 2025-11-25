@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/eli_standard_banner_clean.png" alt="ELI Standard Banner" width="100%">
+</p>
+
 # ELI V1 Liquidity Standard
 
 **Repository:** `ELI-V1-Liquidity-Standard`  
