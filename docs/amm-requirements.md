@@ -1,7 +1,7 @@
 # AMM Compatibility Requirements for the ELI Standard  
 ### How to Evaluate Automated Market Makers for Eternal Liquidity
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Author:** Xenos  
 
 ---
@@ -10,16 +10,20 @@
 
 The ELI Standard (Eternal Liquidity Instrument) defines a way to create **immutable, governance-free liquidity** on Proof-of-Work chains like Ethereum Classic (ETC).
 
-However, ELI does **not** mandate a specific DEX or AMM.
+ELI does **not** mandate a specific AMM.  
+Instead, it provides **requirements** that ensure burned LP (PoBL) liquidity remains:
 
-Instead, it defines **requirements** that any AMM must satisfy in order to safely host **ELI-compliant liquidity pools** (i.e., PoBL pools with burned LP).
+- immutable  
+- non-withdrawable  
+- ungoverned  
+- anchored for the lifetime of the chain  
 
 This document explains:
 
 - what makes an AMM ELI-compatible  
-- how to evaluate an AMM contract  
+- how protocol fees affect (or do not affect) PoBL  
 - how HebeSwap V2 fits these requirements  
-- when a developer should consider building a dedicated / custom AMM
+- when a developer should deploy a dedicated ELI-only AMM
 
 ---
 
@@ -28,24 +32,24 @@ This document explains:
 An AMM is considered **ELI-compatible** if:
 
 1. **Contracts are immutable**  
-   - No proxies, no upgrade hooks, no upgradable logic.
+   - No proxies, no upgrade hooks.
 
-2. **There is no migrator / forced migration path**  
-   - Liquidity cannot be forcibly moved to a new AMM version.
+2. **No migrator / forced migration path**  
+   - Liquidity cannot be forcibly moved to new versions.
 
 3. **LP tokens are standard and non-privileged**  
-   - No owner, no pause, no admin mint/burn outside normal liquidity operations.
+   - No owner, no pause, no blacklist, no arbitrary mint.
 
-4. **Protocol fees (if any) do not threaten base LP immutability**  
-   - No mechanism that can silently or unilaterally drain core liquidity.
+4. **Protocol fees (if present) cannot break the PoBL base**  
+   - Fees must not allow draining or touching the immutable PoBL LP.
 
-5. **No governance over the liquidity behavior**  
-   - No DAO, multisig or role can change pool invariants, forcibly withdraw LP, or impose upgrades on the pair.
+5. **No governance over liquidity behavior**  
+   - No DAO or multisig can alter how LP or swaps behave.
 
-6. **AMM can be used trustlessly via contract only**  
-   - Frontend is optional; contracts behave correctly on-chain.
+6. **AMM is permanently usable via contract alone**  
+   - No off-chain dependencies required for swaps.
 
-ELI is a **liquidity behavior standard**, not a DEX brand — but the DEX must meet these constraints.
+ELI is a behavior standard for liquidity — not a swap or DEX brand.
 
 ---
 
@@ -53,217 +57,197 @@ ELI is a **liquidity behavior standard**, not a DEX brand — but the DEX must m
 
 ### 3.1 Immutability
 
-- AMM contracts MUST NOT:
-  - use proxy patterns
-  - delegate logic to upgradable contracts
-  - include owner-only upgrade functions
+AMM contracts MUST NOT:
 
-**Reason:**  
-If the AMM logic can change, then “eternal” liquidity can be broken by future changes.
+- use proxies  
+- be upgradeable  
+- include owner-only override functions  
+
+**Why:**  
+If AMM logic can change, PoBL’s permanence is no longer guaranteed.
 
 ---
 
 ### 3.2 No Migrator or Forced Liquidity Moves
 
-- There MUST NOT be any:
-  - `migrator` variable
-  - `setMigrator(address)` function
-  - `migrate()` / `upgradeLiquidity()` style calls
+MUST NOT contain:
 
-**Reason:**  
-“Proof of Burn Liquidity” (PoBL) assumes that burned LP **cannot be moved**.  
-A migrator reintroduces the possibility of forced movement.
+- `migrator` variables  
+- `setMigrator()`  
+- `migrate()`  
+- `upgradeLiquidity()`  
+
+**Why:**  
+A migrator can forcibly move liquidity out of the original AMM, breaking immutability.
 
 ---
 
 ### 3.3 LP Token Properties
 
-The LP token MUST:
+LP tokens MUST:
 
-- be a standard ERC-20  
-- only be minted by the pair contract during `mint()`  
-- only be burned during `burn()` via liquidity removal  
-- have **no owner**, no `pause`, no `blacklist`
+- be ERC-20  
+- be minted only during `mint()`  
+- be burned only during `burn()`  
+- have **no owner**, **no pause**, **no blacklist**  
 
-**Reason:**  
-If someone can mint/burn LP arbitrarily, they can fake or distort PoBL and PoBLBS.
+**Why:**  
+PoBL relies on LP tokens being trustless, non-privileged assets.
 
 ---
 
-### 3.4 Protocol Fees (feeTo / feeToSetter)
+### 3.4 Protocol Fees (feeTo / feeToSetter)  
+**Clarified based on code analysis**
 
-Some AMMs (including Uniswap V2-style forks) implement protocol fees via:
+Some AMMs (including Uniswap V2 forks like HebeSwap) implement protocol fees:
 
 - `feeTo` — address that receives protocol fees  
-- `feeToSetter` — address that can set `feeTo`  
-- `_mintFee()` — mints extra LP to `feeTo` when pool growth occurs
+- `feeToSetter` — role that can set `feeTo`  
+- `_mintFee()` — mints **new LP tokens** to `feeTo` based on pool growth
 
-This does **not** directly move burned LP, but:
+This mechanism:
 
-- it mints new LP (diluting the dead-wallet LP)  
-- that LP can be burned by `feeTo` to withdraw underlying reserves  
-- this can gradually **siphon a portion of pool value** out of the AMM
+- 🔒 **cannot remove or touch the original PoBL LP**  
+- 🔒 **cannot withdraw PoBL’s underlying reserves**  
+- 🔒 **cannot “rug” liquidity**  
 
-From an ELI perspective:
+What it *can* do:
 
-- **Acceptable (soft-ELI)** if:
-  - `feeTo` is kept at `address(0)` (no protocol fee)
-  - Or set to a **publicly-known, immutable burn address**
-- **Stronger / ideal (hard-ELI)** if:
-  - AMM implementation used for ELI pairs removes `feeTo`, `feeToSetter`, and `_mintFee` entirely
+- Mint **additional LP** to `feeTo` over time  
+- Allow `feeTo` to burn *its own minted LP* and withdraw **its proportionate share** of reserves  
+- Slightly dilute the dead-wallet LP’s percentage ownership of the pool  
+- But **never degrade or confiscate the PoBL base**
 
-**Conclusion:**  
-Protocol fees are **not inherently incompatible**, but they introduce **trust assumptions**.
-For strict ELI usage, fees SHOULD be disabled or removed at the contract level.
+#### From an ELI perspective
+
+- **Acceptable (soft-ELI)**
+  - If `feeTo == address(0)` (protocol fees disabled)
+  - Or if protocol fees are publicly known and transparent
+
+- **Ideal (hard-ELI)**
+  - Remove `feeTo`, `feeToSetter`, and `_mintFee()` entirely in a dedicated ELI AMM  
+  - This maintains *zero trust surface* and absolute immutability
+
+#### Conclusion
+Protocol fees introduce **proportional dilution**, but **cannot break or exploit the immutable PoBL base**.
 
 ---
 
 ### 3.5 No Governance Over LP Behavior
 
-- The AMM MUST NOT:
-  - let a DAO or multisig vote to change swap math
-  - allow changing fee structure in ways that can confiscate LP
-  - implement pausable or kill-switch behavior over pools
+AMM MUST NOT allow:
 
-**Reason:**  
-ELI’s core: **Zero Governance Finance (ZGF)** at the liquidity layer.
+- DAO votes on pair logic  
+- admin control over fees that change swap math  
+- pausable or kill-switch behavior  
+- any function that could block usage or force migration
 
-If your liquidity depends on a governance decision, it is not ELI-grade.
+**Why:**  
+ELI requires Zero-Governance Finance (ZGF) on the liquidity layer.
 
 ---
 
 ### 3.6 Frontend Independence
 
-The AMM contracts:
+AMM MUST remain usable:
 
-- MUST be callable directly on-chain  
-- MUST not rely on off-chain components for core behavior
+- directly via contract calls  
+- with zero reliance on a web interface  
 
-**Reason:**  
-PoBL and PoBLBS are long-term concepts; liquidity must remain usable even if all frontends vanish.
+**Why:**  
+PoBL and PoBLBS must survive decades of chain time.
 
 ---
 
-## 4. HebeSwap V2 Evaluation (On ETC)
+## 4. HebeSwap V2 Evaluation (ETC)
 
-Based on the provided source code, **HebeSwap V2** is:
+HebeSwap V2 is:
 
-- a direct Uniswap V2-style AMM  
-- with:
-  - **no migrator**
-  - immutable pair contracts
-  - standard LP token behavior
-  - `feeTo` / `feeToSetter` protocol fee logic
-  - no owner/governance for liquidity logic
+- a direct Uniswap V2 fork  
+- **no migrator**  
+- immutable pair contracts  
+- pure XYK invariant  
+- standard LP behavior  
+- protocol fee mechanism intact (optional)
 
-### 4.1 Positives for ELI
+### 4.1 Strengths for ELI
 
-- ✅ No migrator  
-- ✅ Uniswap V2 mechanics (xy = k)  
-- ✅ Immutable pair contracts  
-- ✅ LP burn is permanent and verifiable  
-- ✅ No governance controlling swaps or LP
+- ✔ No migrator  
+- ✔ LP burn = permanent  
+- ✔ No admin withdrawal  
+- ✔ No proxy contracts  
+- ✔ LP can never be touched by owner  
+- ✔ No governance that modifies liquidity
 
-This makes HebeSwap an excellent match for ELI **from a structural AMM design perspective.**
+### 4.2 Protocol Fee Assessment
 
-### 4.2 Protocol Fee Caveat
+- Protocol fees **cannot touch the Genesis PoBL LP**  
+- Protocol fees **can only mint new LP** for `feeTo`  
+- That LP represents only **a share of pool growth**, not the base  
+- If `feeTo` stays unset → pool remains fully immutable and non-dilutive
 
-- The factory contract includes:
-  - `address public feeTo;`
-  - `address public feeToSetter;`
-  - `setFeeTo(address _feeTo)` and `setFeeToSetter(address _feeToSetter)`
+### ELI Recommended Usage
 
-- Pairs include `_mintFee()`, which:
-  - mints new LP to `feeTo` if `feeTo != address(0)`
+- Enable pools on HebeSwap when:
+  - `feeTo == 0x0000000000000000000000000000000000000000`
+  - No active protocol fee harvesting
 
-**Impact:**
-
-- If `feeTo` is set to a non-zero address:
-  - protocol fees accumulate as extra LP  
-  - when `feeTo` burns its LP, some pool reserves can be withdrawn  
-  - this can effectively skim part of the pool over time
-
-**ELI Recommendation for HebeSwap:**
-
-- For ELI-grade pools on HebeSwap:
-  - `feeTo` SHOULD remain `address(0)`  
-  - ELI implementers SHOULD prefer pools where protocol fees are known to be disabled  
-- For maximal purity:
-  - a dedicated factory **for ELI pairs only** can be deployed, with:
-    - `feeTo` hardcoded to zero or removed  
-    - `setFeeTo` / `setFeeToSetter` removed
+- For strictest ELI compliance:
+  - Deploy a custom factory with protocol fees removed entirely
 
 ---
 
 ## 5. Recommendation Summary
 
-### 5.1 Using Existing AMMs (like HebeSwap)
+### ✔ Using HebeSwap (Practical ELI)
 
-**Pros:**
+**Recommended**  
+If `feeTo` is zero or protocol fees are publicly disclosed.
 
-- Already deployed on ETC  
-- Battle-tested mechanics  
-- Familiar UX for users  
-- Easy to integrate
+- Safe  
+- On-chain  
+- Immutable base  
+- No rug mechanics  
+- PoBL anchor guaranteed  
 
-**ELI Stance:**
+### ⭐ Building a Dedicated ELI-Only AMM (Maximal ELI)
 
-- HebeSwap V2 is **recommended** for ELI pairs **provided**:
-  - protocol fees remain disabled (`feeTo == address(0)`)  
-  - ELI implementers understand the residual trust in feeToSetter  
+For builders who want:
 
-This is a **practical, Pro-ETC path** for current builders.
+- zero governance  
+- zero trust  
+- zero dilution  
+- perfect immutability  
 
----
+Deploy a Uniswap V2–derived AMM with:
 
-### 5.2 Building a Dedicated ELI AMM
+- no `feeTo`  
+- no `feeToSetter`  
+- no `_mintFee()`  
+- no governance roles  
+- no fee logic at all
 
-For devs who want absolute purity, ZGF-maximalism, and zero trust assumptions:
-
-**Recommended approach:**
-
-- Start from a Uniswap V2 reference implementation  
-- Remove:
-  - `feeTo`, `feeToSetter`
-  - `_mintFee()` logic
-  - any governance hooks
-- Ensure:
-  - no migrator  
-  - no owner/admin  
-  - no upgradability  
-- Deploy as:
-  - `ELI-AMM` or similar, used exclusively for ELI-grade pools
-
-This yields an AMM that fully matches:
-
-> **Immutable Liquidity for Immutable Chains.**
+This becomes the **canonical ELI AMM**.
 
 ---
 
 ## 6. Quick Checklist for ELI AMM Compatibility
 
-When evaluating any AMM for ELI:
-
-- [ ] No migrator / migration functions  
-- [ ] No upgradeable contracts or proxies  
-- [ ] LP tokens are non-privileged, ERC-20 only  
-- [ ] No functions to force-remove or confiscate LP  
-- [ ] Protocol fees are disabled or cannot harm base liquidity  
-- [ ] No governance over liquidity behavior  
-- [ ] AMM is callable directly on-chain without off-chain dependence  
-
-If all items are satisfied, the AMM is a suitable host for ELI-compliant pools.
+- [ ] No migrator  
+- [ ] No upgradable logic  
+- [ ] LP tokens have no owner/privilege  
+- [ ] Protocol fees cannot touch PoBL  
+- [ ] No governance over AMM logic  
+- [ ] AMM is 100% usable via contract alone  
 
 ---
 
 ## 7. Final Note
 
-ELI does not pick winners among AMMs.
+ELI remains neutral about AMMs.
 
-It simply asserts:
+> **“Immutable liquidity requires an immutable AMM.  
+> If the AMM fits the principle, the pool is eternal.”**
 
-> *“If you want eternal liquidity, the AMM must be as immutable and non-governed as your tokenomics.”*
-
-HebeSwap V2 on ETC, as a Uniswap V2-style AMM without migrator, is a strong match under these principles.  
-Developers who want **absolute purity** are encouraged to deploy **ELI-specialized AMMs** with fees and governance logic removed entirely.
-
+HebeSwap V2 is a strong, practical choice for ELI.  
+A custom fee-less factory represents the ideal future for complete ELI purity.
