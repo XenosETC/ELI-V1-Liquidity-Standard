@@ -97,32 +97,75 @@ This repo is intended for:
 ---
 
 ## Repository Structure (Planned)
-
 ```
 ELI-V1-Liquidity-Standard/
-├─ README.md                      # Main entrypoint. Overview, philosophy, links to all sections.
-├─ LICENSE                        # MIT License (open source, permissive use)
+├─ README.md                      
+│   # Main entrypoint. Overview, philosophy, and navigation links.
+│   # Explains the purpose of ELI, PoBL, PoBLBS, ZGF, and the rationale.
+│
+├─ LICENSE                        
+│   # MIT License (open-source, permissive; allows adoption + derivatives)
 │
 ├─ spec/
-│  └─ ELI-V1.md                   # Formal written specification of ELI
-│                                 # Defines PoBL, PoBLBS, ZGF, and ELI-V1 compliance rules.
+│  └─ ELI-V1.md                   
+│       # Formal written specification of the Eternal Liquidity Instrument (ELI)
+│       # Defines PoBL, PoBLBS, ZGF, compliance rules, and required-liquidity behavior.
 │
 ├─ docs/
-│  ├─ overview.md                 # High-level intro to ELI, purpose, and conceptual foundations
-│  ├─ design-principles.md        # Stewardship, sound liquidity, PoW alignment, immutability ethics
-│  └─ faq.md                      # Common questions, misconceptions, implementation notes
+│  ├─ overview.md                 
+│  │    # High-level explanation of ELI architecture, purpose, scope, and mental model.
+│  │
+│  ├─ design-principles.md        
+│  │    # Stewardship foundations. Why immutable liquidity matters.
+│  │    # PoW alignment, scarcity ethics, zero-governance requirements (ZGF).
+│  │
+│  ├─ faq.md                      
+│  │    # Common questions, misconceptions, clarifications for devs/users.
+│  │
+│  ├─ amm-requirements.md         
+│  │    # AMM compatibility checklist for ELI-compliant liquidity pools.
+│  │    # Defines immutability requirements, LP token rules, fee constraints,
+│  │    # and evaluation framework for AMMs like HebeSwap or custom AMMs.
+│  │
+│  ├─ security-considerations.md  
+│  │    # Threat model for ELI liquidity.
+│  │    # Covers dilution, protocol fee risks, pool-invariant integrity,
+│  │    # admin key analysis, AMM-level risks, and safe deployment practices.
+│  │
+│  └─ terminology.md              
+│       # Canonical definitions used across the entire standard:
+│       # PoBL, PoBLBS, ZGF, Immutable Liquidity, ELI-Asset, ELI-Pair,
+│       # Eternal Liquidity, Base Liquidity, Hard Collateral, etc.
 │
 ├─ examples/
-│  ├─ example-tokenomics.md       # Standardized 50/25/25 ELI-compliant tokenomics example
-│  ├─ example-pobl-flow.md        # Full lifecycle of Proof of Burn Liquidity (PoBL)
-│  └─ example-collateral-usage.md # How ELI assets function as hard collateral in DeFi
+│  ├─ example-tokenomics.md       
+│  │    # Standardized 50/25/25 ELI-compliant token design
+│  │    # Demonstrates healthy supply distribution that respects LP invariants.
+│  │
+│  ├─ example-pobl-flow.md        
+│  │    # Step-by-step lifecycle of PoBL: minting, LP burn, anchoring behavior,
+│  │    # temporal strengthening, and long-term liquidity mechanics.
+│  │
+│  └─ example-collateral-usage.md 
+│       # Illustrates how ELI assets function as hard collateral
+│       # Using PoBLBS as on-chain balance-sheet proof for lending/DeFi.
 │
 ├─ case-studies/
-│  └─ case-1.md                   # Case Study #1 — Token/project utilizing PoBL under ETC
+│  ├─ case-1.md      
+│  │    # Case Study #1 — Token A: First PoBL implementation.
+│  │    # Details design choices, burn events, tokenomics, and lessons learned.
+│  │
+│  └─ case-2.md       
+│       # Placeholder template for future ELI projects.
+│       # Encourages open-source builders to log real-world applications.
 │
 ├─ ecip-draft/
-│  └─ ecip-eli-standard.md        # ECIP-style draft: ecosystem standard (not a protocol change)
-│                                 # Defines ELI as ETC's immutable liquidity framework.
+│  └─ ecip-eli-standard.md        
+│       # ECIP-style proposal describing ELI as an ecosystem-level
+│       # liquidity standard for ETC — NOT a protocol or consensus change.
+│       # Outlines rationale, motivation, and expected benefits.
 │
-└─ CONTRIBUTING.md                # Guidelines for submitting improvements, research, and case studies
-                                  # Ensures philosophical + technical alignment with the standard
+└─ CONTRIBUTING.md                
+    # Rules and guidance for contributing.
+    # Ensures philosophical consistency, technical accuracy, and correct structure.
+    # Defines how to submit issues, improvements, and case studies.
