@@ -6,6 +6,8 @@ Author: Xenos
 License: MIT
 Tagline: Sound money deserves sound liquidity.
 
+
+
 1. Introduction
 
 The ELI Standard (Eternal Liquidity Instrument) defines a liquidity and collateralization method optimized for immutable, Proof-of-Work blockchains, with a primary focus on Ethereum Classic (ETC).
@@ -29,6 +31,7 @@ Stewardship over control
 
 
 2. Definitions
+   
 2.1 Eternal Liquidity Instrument (ELI)
 
 A category of tokens or protocols that meet all mandatory requirements of this standard, including:
@@ -110,7 +113,7 @@ ELI-V1 is the first formal ZG-DeFi standard.
 
 
 3. Purpose
-
+   
 ELI-V1 exists to:
 
 Provide a sound liquidity base for ETC DeFi.
@@ -125,6 +128,7 @@ Create a new collateral class suitable for long-term viability.
 
 
 4. Requirements
+   
 4.1 Mandatory Requirements (MUST)
 
 To be compliant with ELI-V1, a token or dApp MUST:
@@ -177,6 +181,7 @@ Any inflation MUST be mathematically bounded and clearly disclosed.
 
 
 4.2 Strong Recommendations (SHOULD)
+
 4.2.1 Use PoW-Aligned Tokenomics
 
 Inflation should be:
@@ -230,6 +235,7 @@ bridgeless side-systems built on top of the core LP
 
 
 5. Economic Rationale
+   
 5.1 Liquidity as a Public Good
 
 In mutable DeFi systems, liquidity is:
@@ -291,6 +297,7 @@ less speculation, more solidity
 systems that survive cycles
 
 This mirrors Bitcoin’s slow but unstoppable growth pattern.
+
 
 6. Compliance Tests
 
