@@ -98,23 +98,30 @@ This repo is intended for:
 
 ## Repository Structure (Planned)
 
-You can structure this repository like this:
-
-```text
 ELI-V1-Liquidity-Standard/
-├─ README.md                # This file – overview & philosophy
-├─ LICENSE                  # MIT License
+├─ README.md                      # Main entrypoint. Overview, philosophy, links to all sections.
+├─ LICENSE                        # MIT License (open source, permissive use)
+│
 ├─ spec/
-│  └─ ELI-V1.md             # Formal written specification of the standard
+│  └─ ELI-V1.md                   # Formal written specification of the Eternal Liquidity Instrument (ELI)
+│                                 # Defines PoBL, PoBLBS, ZGF and ELI-V1 compliance rules.
+│
 ├─ docs/
-│  ├─ overview.md           # High-level explanation of ELI, PoBL, PoBLBS, ZG-DeFi
-│  ├─ design-principles.md  # Stewardship, sound liquidity, PoW alignment
-│  └─ faq.md                # Common questions & answers
+│  ├─ overview.md                 # High-level intro to ELI, purpose, and conceptual model
+│  ├─ design-principles.md        # Stewardship, sound liquidity, PoW alignment, immutability ethics
+│  └─ faq.md                      # Common questions, misconceptions, implementation notes
+│
 ├─ examples/
-│  ├─ example-tokenomics.md # Example ELI-compliant token design
-│  └─ example-pobl-flow.md  # Step-by-step PoBL process
-├─ ecip-draft/
-│  └─ ecip-eli-standard.md  # Draft text if this evolves into an ECIP / ecosystem standard
-└─ CONTRIBUTING.md          # Guidelines for discussion and contributions
+│  ├─ example-tokenomics.md       # Standardized 50/25/25 ELI-compliant tokenomics example
+│  ├─ example-pobl-flow.md        # Full lifecycle of Proof of Burn Liquidity (PoBL)
+│  └─ example-collateral-usage.md # How ELI assets act as hard collateral in lending/DeFi models
+│
 ├─ case-studies/
-│  └─ case-1.md             # Case studies using ELI standard
+│  ├─ case-1.md                   # Case Study #1 — Token using PoBL on ETC
+│
+├─ ecip-draft/
+│  └─ ecip-eli-standard.md        # ECIP-style proposal: ecosystem standard, not consensus change
+│                                 # Defines ELI as ETC's immutable liquidity standard
+│
+└─ CONTRIBUTING.md                # Detailed rules for submitting improvements, case studies, research
+                                  # Ensures philosophical alignment & spec integrity
