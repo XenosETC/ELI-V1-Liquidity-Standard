@@ -98,6 +98,7 @@ This repo is intended for:
 
 ## Repository Structure (Planned)
 
+```
 ELI-V1-Liquidity-Standard/
 ├─ README.md                      # Main entrypoint. Overview, philosophy, links to all sections.
 ├─ LICENSE                        # MIT License (open source, permissive use)
