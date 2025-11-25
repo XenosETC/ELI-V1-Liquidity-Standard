@@ -103,25 +103,25 @@ ELI-V1-Liquidity-Standard/
 ├─ LICENSE                        # MIT License (open source, permissive use)
 │
 ├─ spec/
-│  └─ ELI-V1.md                   # Formal written specification of the Eternal Liquidity Instrument (ELI)
-│                                 # Defines PoBL, PoBLBS, ZGF and ELI-V1 compliance rules.
+│  └─ ELI-V1.md                   # Formal written specification of ELI
+│                                 # Defines PoBL, PoBLBS, ZGF, and ELI-V1 compliance rules.
 │
 ├─ docs/
-│  ├─ overview.md                 # High-level intro to ELI, purpose, and conceptual model
+│  ├─ overview.md                 # High-level intro to ELI, purpose, and conceptual foundations
 │  ├─ design-principles.md        # Stewardship, sound liquidity, PoW alignment, immutability ethics
 │  └─ faq.md                      # Common questions, misconceptions, implementation notes
 │
 ├─ examples/
 │  ├─ example-tokenomics.md       # Standardized 50/25/25 ELI-compliant tokenomics example
 │  ├─ example-pobl-flow.md        # Full lifecycle of Proof of Burn Liquidity (PoBL)
-│  └─ example-collateral-usage.md # How ELI assets act as hard collateral in lending/DeFi models
+│  └─ example-collateral-usage.md # How ELI assets function as hard collateral in DeFi
 │
 ├─ case-studies/
-│  ├─ case-1.md                   # Case Study #1 — Token using PoBL on ETC
+│  └─ case-1.md                   # Case Study #1 — Token/project utilizing PoBL under ETC
 │
 ├─ ecip-draft/
-│  └─ ecip-eli-standard.md        # ECIP-style proposal: ecosystem standard, not consensus change
-│                                 # Defines ELI as ETC's immutable liquidity standard
+│  └─ ecip-eli-standard.md        # ECIP-style draft: ecosystem standard (not a protocol change)
+│                                 # Defines ELI as ETC's immutable liquidity framework.
 │
-└─ CONTRIBUTING.md                # Detailed rules for submitting improvements, case studies, research
-                                  # Ensures philosophical alignment & spec integrity
+└─ CONTRIBUTING.md                # Guidelines for submitting improvements, research, and case studies
+                                  # Ensures philosophical + technical alignment with the standard
