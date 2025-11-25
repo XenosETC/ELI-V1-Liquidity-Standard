@@ -1,4 +1,3 @@
-```
 # AMM Compatibility Requirements for the ELI Standard  
 ### How to Evaluate Automated Market Makers for Eternal Liquidity
 
@@ -267,4 +266,4 @@ It simply asserts:
 
 HebeSwap V2 on ETC, as a Uniswap V2-style AMM without migrator, is a strong match under these principles.  
 Developers who want **absolute purity** are encouraged to deploy **ELI-specialized AMMs** with fees and governance logic removed entirely.
-```
+
