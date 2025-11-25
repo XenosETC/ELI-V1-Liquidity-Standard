@@ -116,3 +116,5 @@ ELI-V1-Liquidity-Standard/
 ├─ ecip-draft/
 │  └─ ecip-eli-standard.md  # Draft text if this evolves into an ECIP / ecosystem standard
 └─ CONTRIBUTING.md          # Guidelines for discussion and contributions
+├─ case-studies/
+│  └─ case-1.md             # Case studies using ELI standard
