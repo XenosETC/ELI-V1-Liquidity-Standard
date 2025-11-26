@@ -162,6 +162,3 @@ Hard Liquidity forms the immutable economic foundation of ELI-compliant assets.
 Soft Liquidity enables user-driven DeFi without compromising the permanence of the base.
 
 Together, they create the **dual-layer liquidity model** that makes the ELI Standard uniquely suitable for Ethereum Classic — a chain defined by simplicity, immutability, and certainty.
-
-
-Just say the word.
