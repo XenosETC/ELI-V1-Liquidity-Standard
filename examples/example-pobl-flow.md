@@ -55,7 +55,7 @@ This burn is separate from the LP burn; both are required.
 
 ## **Step 3 — Create the Initial Liquidity Pool**
 
-Pair the **LP allocation (25% of supply)** with ETC on an ETC AMM (HebeSwap, Saturn, etc.).
+Pair the **LP allocation (25% of supply)** with ETC on an ETC AMM (HebeSwap, etc.).
 
 Example:
 
