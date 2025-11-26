@@ -159,11 +159,6 @@ ELI-V1-Liquidity-Standard/
 │       # Placeholder template for future ELI projects.
 │       # Encourages open-source builders to log real-world applications.
 │
-├─ ecip-draft/
-│  └─ ecip-eli-standard.md        
-│       # ECIP-style proposal describing ELI as an ecosystem-level
-│       # liquidity standard for ETC — NOT a protocol or consensus change.
-│       # Outlines rationale, motivation, and expected benefits.
 │
 └─ CONTRIBUTING.md                
     # Rules and guidance for contributing.
