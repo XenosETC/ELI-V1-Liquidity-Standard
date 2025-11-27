@@ -2,165 +2,175 @@
   <img src="assets/eli_standard_banner_clean.png" alt="ELI Standard Banner" width="100%">
 </p>
 
-# ELI V1 Liquidity Standard
-
-**Repository:** `ELI-V1-Liquidity-Standard`  
-**Standard:** ELI V1 – Eternal Liquidity Instrument  
-**Tagline:** *Sound money deserves sound liquidity.*
+# ELI — Eternal Liquidity Instruments (V1 Standard)
+*Immutable Liquidity. Zero Governance. Stewardship on Ethereum Classic.*
 
 ---
 
 ## Overview
+ELI (Eternal Liquidity Instruments) is a liquidity standard built for Ethereum Classic (ETC), designed to create **immutable, unowned, permanent liquidity** using a novel mechanism: burning LP tokens to the dead wallet.
 
-The **ELI Standard (Eternal Liquidity Instrument)** defines a liquidity and collateral framework for **immutable, Proof-of-Work chains**, with a primary focus on **Ethereum Classic (ETC)**.
+This creates a dual-layer liquidity architecture:
 
-ELI is a **social-layer and smart contract standard**, not a protocol fork. It describes how to structure liquidity, tokenomics, and DeFi architecture so that they *align with ETC’s core principles*:
+- **Hard Liquidity (HL)** — Unowned, permanent, ossified base liquidity  
+- **Soft Liquidity (SL)** — Flexible, human-layer liquidity that can be added, removed, leveraged, or used for yield
 
-- Immutability  
-- Scarcity  
-- Proof-of-Work security  
-- Zero governance interference  
-- Stewardship > control  
-
-At its core, ELI is about:
-
-> **Liquidity that is untouchable but usable.**  
-> LP that cannot be moved or rugged, but can still power DEXes, collateral, and DeFi.
+The result is a **zero-governance DeFi foundation** that can operate indefinitely, aligning perfectly with ETC’s immutability and stewardship ethos.
 
 ---
 
-## Core Ideas
+## Why ELI Exists
+Most DeFi systems suffer from:
 
-ELI V1 formalizes three main components:
+- Governance capture  
+- Upgrades that break assumptions  
+- Admin control  
+- Liquidity rugging  
+- Endless parameter tuning  
+- Protocol drift  
+- Fragile L2/L3 dependency  
 
-### 1. PoBL – Proof of Burn Liquidity
+ELI solves this at the root by removing the **possibility** of control:
 
-**Proof of Burn Liquidity (PoBL)** is the act of **permanently burning LP tokens** to a dead wallet address so that:
+- LP tokens are burned into a dead wallet  
+- The AMM is immutable  
+- Yield logic is immutable  
+- No governance layer exists  
+- No upgrades  
+- No multisigs  
+- No admin keys  
 
-- Liquidity cannot be withdrawn  
-- Liquidity cannot be migrated  
-- Liquidity cannot be governed or seized  
-- Liquidity becomes *effectively immutable*
-
-This turns liquidity into a **public good** secured by the chain itself, not by a team, DAO, or multisig.
-
-### 2. PoBLBS – Proof of Burn Liquidity Balance Sheets
-
-**PoBLBS** is the on-chain accounting layer that treats burned LP as:
-
-- Verifiable reserves  
-- A permanent collateral base  
-- A transparent, immutable “balance sheet” for a token or protocol
-
-It lets anyone calculate:
-
-- How much ETC (and paired asset) is permanently locked  
-- The effective minimum depth and baseline backing  
-- The long-term collateral quality of an asset
-
-### 3. ZG-DeFi / ZGF – Zero Governance DeFi / Zero Governance Finance
-
-ELI is designed for **Zero Governance DeFi (ZG-DeFi)**:
-
-- No DAO votes required to secure liquidity  
-- No treasury management required to back the asset  
-- No admin keys needed to “control” reserves  
-- No L1 governance changes required
-
-The **only “governance” is self-sovereignty**:  
-Your “vote” is your token, backed by immutable LP burned to the dead wallet. Anyone can build on top of that base.
+This creates **settlement-grade liquidity** that behaves like economic bedrock.
 
 ---
 
-## Design Goals
+## Core Principles
+ELI is built on six foundational principles:
 
-ELI V1 is built around these goals:
-
-- **Immutable Liquidity** – LP that cannot be rugged, migrated, or politically altered  
-- **PoW Alignment** – Liquidity behavior that matches the economic reality of a finite, PoW chain (like ETC)  
-- **Zero Governance** – No DAOs or treasuries required for the liquidity base itself  
-- **Stewardship First Principles** – Builders act as stewards, not rulers; they commit liquidity, not control it  
-- **Tokenomics Integrity** – Issuance and supply behavior must **never** undermine the burned LP base  
-- **Slow, Strong Growth** – ELI systems favor slower but more secure, long-lived DeFi over fast, fragile models
-
----
-
-## Who Is This For?
-
-This repo is intended for:
-
-- **ETC / PoW DeFi Developers** – designing tokens, DEXes, or protocols using immutable liquidity  
-- **Token Issuers** – who want to commit to honest, non-rug, PoBL-based tokenomics  
-- **Researchers & Economists** – exploring hard liquidity, PoW-aligned DeFi, and social-layer design  
-- **ETC Community Members** – who want a formal reference for the ELI concept and architecture
+1. **Immutability** — Once deployed, nothing can be changed  
+2. **Ossification** — Liquidity becomes permanent economic mass  
+3. **Neutrality** — No entity owns or governs the base layer  
+4. **Stewardship** — The protocol acts as a caretaker, not a ruler  
+5. **Simplicity** — Minimal surface area, maximal longevity  
+6. **Zero Governance** — No human coordination required  
 
 ---
 
-## Repository Structure (Planned)
+## Dual-Layer Liquidity Model
+
+### 🟩 Hard Liquidity (HL)
+Liquidity burned into the dead wallet becomes:
+
+- Unowned  
+- Unremovable  
+- Unforkable  
+- Neutral  
+- Permanent  
+- Settlement-grade  
+
+It is the **bone layer** of the system — an economic fossil that grows over time.
+
+### 🟦 Soft Liquidity (SL)
+Optional liquidity users add intentionally:
+
+- Withdrawable  
+- Incentivizable  
+- Collateralizable  
+- Volatile  
+- Yield-bearing  
+
+SL creates market flexibility **without compromising** HL.
+
+---
+
+## The ELI Cycle (The “8”)
+ELI encodes a natural cycle of **creation → destruction → rebirth**, forming an infinite loop:
+
+1. Trade occurs  
+2. Fee is generated  
+3. Fee mints new LP  
+4. LP is burned (destroyed)  
+5. Hard Liquidity increases (reborn)  
+6. AMM becomes stronger  
+7. More volume flows through  
+8. Cycle repeats  
+
+This forms the **ELI Flywheel**, a self-reinforcing loop powered by usage.
+
+---
+
+## Why ETC Is the Natural Home for ELI
+ETC provides a unique environment:
+
+- PoW finality  
+- Immutable ethos  
+- No governance culture  
+- Long-term settlement stability  
+- No sequencer politics  
+- Minimal protocol churn  
+
+Other chains are too upgrade-heavy, too politicized, or too dependent on L2 governance to support genuine ossification.
+
+
+## Repository Structure
+
 ```
 ELI-V1-Liquidity-Standard/
-├─ README.md                      
-│   # Main entrypoint. Overview, philosophy, and navigation links.
-│   # Explains the purpose of ELI, PoBL, PoBLBS, ZGF, and the rationale.
 │
-├─ LICENSE                        
-│   # MIT License (open-source, permissive; allows adoption + derivatives)
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
 │
-├─ spec/
-│  └─ ELI-V1.md                   
-│       # Formal written specification of the Eternal Liquidity Instrument (ELI)
-│       # Defines PoBL, PoBLBS, ZGF, compliance rules, and required-liquidity behavior.
+├── ELI-V1.md                # Main specification
 │
-├─ docs/
-│  ├─ overview.md                 
-│  │    # High-level explanation of ELI architecture, purpose, scope, and mental model.
-│  │
-│  ├─ design-principles.md        
-│  │    # Stewardship foundations. Why immutable liquidity matters.
-│  │    # PoW alignment, scarcity ethics, zero-governance requirements (ZGF).
-│  │
-│  ├─ faq.md                      
-│  │    # Common questions, misconceptions, clarifications for devs/users.
-│  │
-│  ├─ amm-requirements.md         
-│  │    # AMM compatibility checklist for ELI-compliant liquidity pools.
-│  │    # Defines immutability requirements, LP token rules, fee constraints,
-│  │    # and evaluation framework for AMMs like HebeSwap or custom AMMs.
-│  │
-│  ├─ security-considerations.md  
-│  │    # Threat model for ELI liquidity.
-│  │    # Covers dilution, protocol fee risks, pool-invariant integrity,
-│  │    # admin key analysis, AMM-level risks, and safe deployment practices.
-│  │
-│  └─ terminology.md              
-│       # Canonical definitions used across the entire standard:
-│       # PoBL, PoBLBS, ZGF, Immutable Liquidity, ELI-Asset, ELI-Pair,
-│       # Eternal Liquidity, Base Liquidity, Hard Collateral, etc.
+├── case-studies/
+│   ├── case-1.md
+│   ├── case-2.md
+├── docs/
+│   ├── overview.md
+│   ├── terminology.md
+│   ├── design-principles.md
+│   ├── hard-vs-soft-liquidity.md
+│   ├── ossification.md          # NEW
+│   ├── dead-wallet-engine.md    # NEW
+│   ├── eli-flywheel.md          # NEW
+│   ├── stewardship.md           # NEW
+│   ├── amm-requirements.md
+│   ├── faq.md
+│   └── security-considerations.md
 │
-├─ examples/
-│  ├─ example-tokenomics.md       
-│  │    # Standardized 50/25/25 ELI-compliant token design
-│  │    # Demonstrates healthy supply distribution that respects LP invariants.
-│  │
-│  ├─ example-pobl-flow.md        
-│  │    # Step-by-step lifecycle of PoBL: minting, LP burn, anchoring behavior,
-│  │    # temporal strengthening, and long-term liquidity mechanics.
-│  │
-│  └─ example-collateral-usage.md 
-│       # Illustrates how ELI assets function as hard collateral
-│       # Using PoBLBS as on-chain balance-sheet proof for lending/DeFi.
-│
-├─ case-studies/
-│  ├─ case-1.md      
-│  │    # Case Study #1 — Token A: First PoBL implementation.
-│  │    # Details design choices, burn events, tokenomics, and lessons learned.
-│  │
-│  └─ case-2.md       
-│       # Placeholder template for future ELI projects.
-│       # Encourages open-source builders to log real-world applications.
-│
-│
-└─ CONTRIBUTING.md                
-    # Rules and guidance for contributing.
-    # Ensures philosophical consistency, technical accuracy, and correct structure.
-    # Defines how to submit issues, improvements, and case studies.
+└── examples/
+├── example-pobl-flow.md
+├── example-tokenomics.md
+└── example-collateral.md
+```
+```
+
+```
+## Status
+**Draft Specification — V1**  
+ELI is intentionally simple, immutable, and permanent.  
+Future versions will **add new standards**, not alter existing ones.
+
+---
+
+## Contributing
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for contribution guidelines.
+
+ELI is a **stewardship-first** standard.  
+Contributions must not introduce governance, upgradeability, or mutable behavior.
+
+---
+
+## License
+MIT License.  
+See [`LICENSE`](./LICENSE).
+
+---
+
+## Long Live the Steward Chain
+ELI is fully aligned with ETC’s destiny:  
+**preserving immutable infrastructure for generations.**
+
+This is DeFi without rulers, politics, or control —  
+just **pure, eternal liquidity.**
